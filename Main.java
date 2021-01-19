@@ -9,23 +9,23 @@ class Main {
     static String [] addNameMethod(String str[], String userInput)
     {
       String [] temp  = new String [str.length +1];
-      for (int i=0;i <str.length +1; i++)
+      for (int i=0;i < str.length; i++)
       {
-        temp [i] = str [i]; 
+       temp [i]  = str [i] ; 
       }
       temp[temp.length-1] = userInput;
       return temp;
     }
 
-    static void addScoreMethod (int arr [], int userInput)
+    static int [] addScoreMethod (int arr [], int userInput)
     {
       int [] temp  = new int [arr.length +1];
-      for (int i=0;i <arr.length +1; i++)
+      for (int i=0;i <arr.length; i++)
       {
         temp [i] = arr [i]; 
       }
       temp[temp.length-1] = userInput;
-      
+      return temp;
     }
 
     static String[] remainderNameSortMethod(String str[], int arrLength)
@@ -107,7 +107,7 @@ class Main {
     System.out.println("1. yes   2. no");
     choice = Integer.parseInt(input.nextLine());
 
-    if (choice == 1)
+    while (choice == 1)
     {
       System.out.println("What is the new name?");
       newName = input.nextLine();
@@ -116,23 +116,32 @@ class Main {
       System.out.println();
 
       nameArray = addNameMethod(nameArray, newName);
-      addScoreMethod(scoreArray, newScore);
-
-      
+      scoreArray = addScoreMethod(scoreArray, newScore);
 
       System.out.println("Would you like to save the scores or add more?");
       System.out.println("1. Add more  2. Save and move on");
       choice = Integer.parseInt(input.nextLine());
     }
-    //Putting the names and Scores into the File
-    //FileWriter myWriter = new FileWriter (myFile);
     
-    //myWriter.close();
-
-    
-    for (int i=0; i< (lineCounter/2); i++ )
+    if (choice == 2)
     {
-    System.out.println(remainderNameSortMethod(nameArray,(lineCounter/2))[i] + " " +scoreArray[i]);
+    //Putting the names and Scores into the File
+    FileWriter myWriter = new FileWriter (myFile);
+    for (int i= 0; i<nameArray.length; i++)
+    {
+    myWriter.write(nameArray[i]+"\n");
+
+    }
+    for (int i= 0; i<scoreArray.length; i++)
+    {
+      myWriter.write(scoreArray[i]+"\n");
+    }
+    myWriter.close(); 
+
+    for (int i=0; i< nameArray.length; i++ )
+    {
+    System.out.println(remainderNameSortMethod(nameArray,nameArray.length)[i] + " " +scoreArray[i]);
+    }
     }
   }
 }
